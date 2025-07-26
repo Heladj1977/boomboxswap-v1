@@ -70,8 +70,8 @@ trunk# BOOMBOXSWAP V1 - ROADMAP DE DÉVELOPPEMENT
 
 ### 2.2 Page 1 - Dashboard Principal
 - [ ] **Card 1** : Portefeuille (adaptatif multi-chain)
-- [ ] **Card 2** : Rendements (avec break-even)
-- [ ] **Card 3** : Prix temps réel (adaptatif)
+- [ ] **Card 2** : Prix temps réel (adaptatif)
+- [ ] **Card 3** : Rendements (avec break-even)
 - [ ] **Card 4** : Dépôt (avec estimation)
 - [ ] **Card 5** : Actions (PLAY/EJECT/PREV/NEXT)
 - [ ] **Card 6** : Swap intégré (triangle)

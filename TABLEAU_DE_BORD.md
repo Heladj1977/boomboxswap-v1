@@ -98,21 +98,21 @@
 - [x] **Conversion Checksum Web3** (Web3.to_checksum_address()) - CORRIGÉ
 
 **Corrections Récentes** :
-- **2024-07-24** : AMÉLIORATION MAJEURE Card 3 - Prix temps réel style Binance
+- **2024-07-24** : AMÉLIORATION MAJEURE Card 2 - Prix temps réel style Binance
   - Problème : Polling fixe 30s trop lent, pas d'abonnement aux événements blockchain
   - Solution : Système d'événements blockchain + Server-Sent Events + animations temps réel
   - Résultat : Mises à jour immédiates (3-5s) avec animations vert/rouge, style Binance
-  - Impact : Card 3 fonctionne en temps réel sans wallet, 100% blockchain, zéro API externe
-- **2024-07-24** : Correction Card 3 Prix temps réel - Fonctionnement sans wallet connecté
+  - Impact : Card 2 fonctionne en temps réel sans wallet, 100% blockchain, zéro API externe
+- **2024-07-24** : Correction Card 2 Prix temps réel - Fonctionnement sans wallet connecté
   - Problème : Prix hardcodé ($750.36) au lieu d'être dynamique depuis la blockchain
   - Solution : Amélioration updatePrices() pour fonctionner sans wallet, gestion d'erreurs robuste
   - Résultat : Le prix BNB se met à jour automatiquement depuis PancakeSwap V3 toutes les 30 secondes
-  - Impact : Card 3 fonctionne conformément au cahier des charges (SANS wallet connecté)
-- **2024-07-24** : Correction Card 3 Prix temps réel - Résolution incohérence frontend/backend
+  - Impact : Card 2 fonctionne conformément au cahier des charges (SANS wallet connecté)
+- **2024-07-24** : Correction Card 2 Prix temps réel - Résolution incohérence frontend/backend
   - Problème : JavaScript cherchait id="bnbPrice" mais HTML utilisait seulement class="price-main"
-  - Solution : Ajout de id="bnbPrice" à l'élément HTML de la Card 3
+  - Solution : Ajout de id="bnbPrice" à l'élément HTML de la Card 2
   - Résultat : Le prix BNB se met maintenant à jour dynamiquement toutes les 30 secondes
-  - Impact : Card 3 fonctionne conformément au cahier des charges
+  - Impact : Card 2 fonctionne conformément au cahier des charges
 - **2024-07-24** : Correction imports tests - Résolution erreur "Import services.memory_cache could not be resolved" dans tests/test_quick.py
   - Problème : Imports relatifs incorrects dans les tests
   - Solution : Correction des chemins d'import avec sys.path.insert() et imports relatifs corrects
@@ -166,10 +166,10 @@
 #### 2.2 Page 1 - Dashboard Principal (95% - JAVASCRIPT AJOUTÉ)
 - [x] **Card 1** : Portefeuille (adaptatif multi-chain) avec icône HTML/CSS
 - [x] **Card 1** : Données temps réel (JavaScript ajouté)
-- [x] **Card 2** : Rendements (avec break-even) avec icône HTML/CSS
-- [x] **Card 2** : Données temps réel (JavaScript ajouté)
-- [x] **Card 3** : Prix temps réel (adaptatif) avec icône HTML/CSS
-- [x] **Card 3** : Prix temps réel fonctionnel (JavaScript ajouté)
+- [x] **Card 2** : Prix temps réel (adaptatif) avec icône HTML/CSS
+- [x] **Card 2** : Prix temps réel fonctionnel (JavaScript ajouté)
+- [x] **Card 3** : Rendements (avec break-even) avec icône HTML/CSS
+- [x] **Card 3** : Données temps réel (JavaScript ajouté)
 - [x] **Card 4** : Dépôt (avec estimation) avec icône HTML/CSS
 - [x] **Card 4** : Fonctionnalités interactives (JavaScript ajouté)
 - [x] **Card 5** : Actions (Interface musicale) avec icône HTML/CSS
@@ -328,8 +328,8 @@ La connexion réelle MetaMask et WalletConnect est totalement fonctionnelle côt
     - Gestion de la déconnexion utilisateur
     - Préparation de l'intégration WalletConnect
 
-### [CORRECTION 2025-07-26] CARD 3 PRIX TEMPS RÉEL - FINALISATION
-**Problème résolu** : Card 3 affichait un prix hardcodé au lieu du vrai prix BNB/USDT
+### [CORRECTION 2025-07-26] CARD 2 PRIX TEMPS RÉEL - FINALISATION
+**Problème résolu** : Card 2 affichait un prix hardcodé au lieu du vrai prix BNB/USDT
 **Modifications appliquées** :
 
 #### Backend (contract_manager.py)
@@ -355,7 +355,7 @@ La connexion réelle MetaMask et WalletConnect est totalement fonctionnelle côt
 - ✅ API Response : Logique backend correcte
 - ✅ Frontend Logic : Formatage et animation corrects
 
-**Résultat** : Card 3 affiche maintenant le vrai prix BNB/USDT en temps réel, fidèle à Binance, avec animations de changement de prix (vert/rouge selon hausse/baisse).
+**Résultat** : Card 2 affiche maintenant le vrai prix BNB/USDT en temps réel, fidèle à Binance, avec animations de changement de prix (vert/rouge selon hausse/baisse).
 
 ## [BUG UX] Bouton wallet blanc à l'ouverture
 - **Cause** : Le bouton n'avait pas la classe d'état 'disconnected' à l'ouverture, donc il héritait du style de base (fond blanc).
@@ -550,4 +550,203 @@ Ces solutions peuvent être réutilisées pour :
 **Date de résolution** : 24 juillet 2025  
 **Développeur principal** : Agent Cursor AI  
 **Support technique** : Claude (Anthropic)  
+**Statut** : ✅ RÉSOLU DÉFINITIVEMENT
+
+### 🔧 CORRECTION CRITIQUE - ANIMATION PRIX BNB (26/07/2025)
+
+#### 📋 CONTEXTE
+**Durée du debug** : ~2 heures
+**Complexité** : Élevée (conflits CSS multiples)
+**Impact** : Animation prix non visible malgré logique JavaScript correcte
+
+#### 🚨 PROBLÈMES IDENTIFIÉS
+
+##### PROBLÈME #1 - FICHIERS CSS NON CHARGÉS
+**Symptômes observés :**
+- Logs JavaScript montrant classes ajoutées/retirées correctement
+- Animation non visible visuellement dans le navigateur
+- Élément `#bnbPrice` sans style appliqué
+
+**Cause racine :**
+- Fichiers CSS `boombox-gaming.css`, `boomboxswap-modern.css`, `colors-override.css` non inclus dans le HTML
+- Classes `.pulse`, `.price-up`, `.price-down` définies mais non chargées
+- Style `.price-main` non appliqué à l'élément
+
+**Tentative échouée :**
+- Ajout des liens CSS externes → Interface complètement cassée (conflits CSS)
+
+##### PROBLÈME #2 - CONFLITS CSS MULTIPLES
+**Symptômes observés :**
+- Trois définitions de `.price-main` avec couleurs différentes
+- Animation continue `pricePulse 3s infinite` interférant
+- Couleur verte par défaut au lieu de blanche
+
+**Causes racines :**
+- Ligne 594 : `color: white;` ✅ (correct)
+- Ligne 852 : Pas de couleur (responsive)
+- Ligne 973 : `color: var(--accent-green);` ❌ (vert - problème)
+
+##### PROBLÈME #3 - ANIMATION CONTINUE INTERFÉRANTE
+**Symptômes observés :**
+- Animation automatique `pricePulse` en boucle infinie
+- Conflit avec animation contrôlée par JavaScript
+- Effet visuel incohérent
+
+**Cause racine :**
+- `animation: pricePulse 3s infinite` dans la première définition de `.price-main`
+
+#### ✅ SOLUTIONS APPLIQUÉES
+
+##### SOLUTION #1 - AJOUT DES STYLES D'ANIMATION INTÉGRÉS
+```css
+/* Styles d'animation pour le prix BNB */
+.price-main {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #FFFFFF !important;
+    transition: all 0.3s ease;
+}
+
+.pulse {
+    animation: pulse-animation 0.6s ease-in-out;
+}
+
+.price-up {
+    color: #4CAF50 !important;
+}
+
+.price-down {
+    color: #F44336 !important;
+}
+
+@keyframes pulse-animation {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+```
+
+**Points critiques :**
+- Styles ajoutés directement dans le CSS intégré du HTML
+- Évite les conflits avec les fichiers CSS externes
+- Couleur blanche forcée avec `!important`
+
+##### SOLUTION #2 - SUPPRESSION DE L'ANIMATION CONTINUE
+```css
+/* AVANT (problématique) */
+.price-main {
+    font-size: 4.2rem;
+    font-weight: 700;
+    color: white;
+    animation: pricePulse 3s infinite; /* SUPPRIMÉ */
+}
+
+/* APRÈS (corrigé) */
+.price-main {
+    font-size: 4.2rem;
+    font-weight: 700;
+    color: white;
+}
+```
+
+**Points critiques :**
+- Suppression de `animation: pricePulse 3s infinite`
+- Suppression de `@keyframes pricePulse` inutilisé
+- Animation contrôlée uniquement par JavaScript
+
+##### SOLUTION #3 - CORRECTION DE LA COULEUR PAR DÉFAUT
+```css
+/* AVANT (problématique) */
+.price-main {
+    color: var(--accent-green); /* Vert */
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.5); /* Ombre verte */
+}
+
+/* APRÈS (corrigé) */
+.price-main {
+    color: #FFFFFF !important; /* Blanc forcé */
+}
+```
+
+**Points critiques :**
+- Changement de `var(--accent-green)` vers `#FFFFFF !important`
+- Suppression de l'ombre verte
+- Priorité CSS avec `!important`
+
+#### 🔬 MÉTHODE DE DIAGNOSTIC UTILISÉE
+
+##### 1. ANALYSE CSS SYSTÉMATIQUE
+- Recherche de toutes les définitions de `.price-main`
+- Vérification des propriétés `color` et `animation`
+- Identification des conflits de spécificité CSS
+
+##### 2. TESTS D'ANIMATION
+- Vérification des logs JavaScript
+- Test des classes CSS via console
+- Validation du rendu visuel
+
+##### 3. RÉSOLUTION INCRÉMENTALE
+- Correction d'un problème à la fois
+- Tests après chaque modification
+- Validation de la non-régression
+
+#### 📚 LEÇONS APPRISES
+
+##### TECHNIQUES CSS AVANCÉES
+1. **Gestion des conflits CSS**
+   - Toujours vérifier les définitions multiples
+   - Utiliser `!important` pour forcer la priorité
+   - Privilégier le CSS intégré pour les styles critiques
+
+2. **Animations contrôlées**
+   - Éviter les animations automatiques en boucle
+   - Contrôler les animations via JavaScript
+   - Nettoyer les keyframes inutilisés
+
+3. **Diagnostic de rendu**
+   - Logs JavaScript ≠ rendu visuel
+   - Vérifier le chargement des fichiers CSS
+   - Tester les styles via console
+
+##### BONNES PRATIQUES
+1. **Architecture CSS**
+   - CSS intégré pour les styles critiques
+   - Fichiers externes pour les styles génériques
+   - Éviter les conflits de spécificité
+
+2. **Debugging méthodique**
+   - Analyse complète avant corrections
+   - Solutions incrémentales
+   - Tests de non-régression
+
+3. **Performance**
+   - Suppression des animations inutiles
+   - Optimisation des transitions CSS
+   - Éviter les reflows inutiles
+
+#### 🎯 RÉSULTAT FINAL
+- ✅ Animation prix BNB parfaitement visible
+- ✅ Couleur blanche par défaut
+- ✅ Animations vert/rouge temporaires (600ms)
+- ✅ Pas d'interférence avec l'interface
+- ✅ Performance optimale
+
+#### 💡 APPLICATIONS FUTURES
+Ces solutions peuvent être réutilisées pour :
+- Tous les éléments avec animations contrôlées
+- Gestion des conflits CSS complexes
+- Optimisation des performances d'animation
+- Debugging de problèmes de rendu CSS
+
+#### ⚠️ POINTS D'ATTENTION
+- Ne jamais ajouter d'animations automatiques en boucle
+- Toujours vérifier les définitions CSS multiples
+- Privilégier le CSS intégré pour les styles critiques
+- Tester le rendu visuel, pas seulement les logs JavaScript
+
+---
+
+**Date de résolution** : 26 juillet 2025  
+**Développeur principal** : Claude Senior Developer  
+**Support technique** : Cursor AI  
 **Statut** : ✅ RÉSOLU DÉFINITIVEMENT

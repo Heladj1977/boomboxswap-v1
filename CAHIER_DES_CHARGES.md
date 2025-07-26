@@ -25,8 +25,8 @@ BOOMBOXSWAP V1 - ARCHITECTURE COMPLÈTE V2
 
 ### POINT 2 : SPÉCIFICATIONS COMPLÈTES 6 CARDS
 - **Card 1** : Portefeuille adaptatif (BNB/USDT/CAKE ou ETH/USDT/CAKE) avec icône
-- **Card 2** : Rendements détaillés (frais, rewards, rebalancing, autocompound, break even) avec icône
-- **Card 3** : Prix temps réel adaptatif (BNB/USDT ou ETH/USDT selon chain) avec icône
+- **Card 2** : Prix temps réel adaptatif (BNB/USDT ou ETH/USDT selon chain) avec icône
+- **Card 3** : Rendements détaillés (frais, rewards, rebalancing, autocompound, break even) avec icône
 - **Card 4** : Dépôt avec estimation temps réel (BNB ou ETH + boutons % + estimation LP) avec icône
 - **Card 5** : Interface musicale (PLAY vert, EJECT rouge, PREV/NEXT bleu + infos position détaillées) avec icône
 - **Card 6** : Swap intégré adaptatif (triangle BNB/USDT/CAKE ou ETH/USDT/CAKE) avec icône
@@ -84,7 +84,7 @@ boomboxswap-v1/
     assets/
        css/
           arcade-display.css // Affichage APR temps réel
-          boombot-modern.css // Interface gaming principale
+          boomboxswap-modern.css // Interface gaming principale
           colors-override.css // Override couleurs finales
        images/
           tokens/ // Logos BNB/USDT/CAKE
@@ -386,21 +386,7 @@ boomboxswap-v1/
 
 ```
 
-#### CARD 2 : RENDEMENTS  (Complet et détaillé)
-```
-
- Rendements
-
- Frais Générés: $0.00 (BNB+USDT)
- Rewards CAKE: $0.00
- Total Gains: $0.00
- Rebalancing: 3 fois
- Autocompound: 12 fois
- Break Even:  Atteint
-
-```
-
-#### CARD 3 : PRIX TEMPS RÉEL  (Adaptatif)
+#### CARD 2 : PRIX TEMPS RÉEL  (Adaptatif)
 **BSC :**
 ```
 
@@ -422,6 +408,20 @@ boomboxswap-v1/
              $3,847.50
            (temps réel)
 
+
+```
+
+#### CARD 3 : RENDEMENTS  (Complet et détaillé)
+```
+
+ Rendements
+
+ Frais Générés: $0.00 (BNB+USDT)
+ Rewards CAKE: $0.00
+ Total Gains: $0.00
+ Rebalancing: 3 fois
+ Autocompound: 12 fois
+ Break Even:  Atteint
 
 ```
 
@@ -494,9 +494,9 @@ boomboxswap-v1/
 ```
 
 #### COMPORTEMENT CARDS SANS WALLET
-- **Card 3** : Prix temps réel fonctionnel
-- **"Cards 1,2,4,5,6"** : Messages "Connectez wallet pour accéder"
-- **Sélecteur chain** : Change prix Card 3 immédiatement
+- **Card 2** : Prix temps réel fonctionnel
+- **"Cards 1,3,4,5,6"** : Messages "Connectez wallet pour accéder"
+- **Sélecteur chain** : Change prix Card 2 immédiatement
 - **Toutes fonctions** : Activées après connexion wallet
 
 #### FILTRAGE POSITIONS PAR CHAIN (Card 6)

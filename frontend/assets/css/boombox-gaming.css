@@ -480,6 +480,7 @@ body {
 }
 #chain-selector {
     position: relative !important;
+    cursor: pointer !important;
 }
 #chain-options {
     position: fixed !important;
@@ -488,6 +489,11 @@ body {
     border: 1px solid rgba(74, 144, 226, 0.4) !important;
     border-radius: 8px !important;
     max-width: 120px !important;
+    min-width: 120px !important;
+    padding: 4px 0 !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    backdrop-filter: blur(10px) !important;
+    overflow: hidden !important;
 }
 #chain-options .chain-option {
     display: block !important;
