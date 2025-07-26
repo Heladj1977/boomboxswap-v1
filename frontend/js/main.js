@@ -700,7 +700,7 @@ class BoomboxApp {
                 }, 1000);
             }
             
-            bnbPriceElement.textContent = `$${newPrice.toFixed(2)}`;
+            bnbPriceElement.textContent = `$${parseFloat(newPrice).toFixed(2)}`;
             console.log('PRIX BNB MIS A JOUR:', newPrice);
         } else if (bnbPriceElement) {
             bnbPriceElement.textContent = 'Prix non disponible';
