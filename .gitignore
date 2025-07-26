@@ -1,80 +1,63 @@
-# Environnements Python
+# =============================
+# Fichiers et dossiers à ignorer pour BOOMBOXSWAP
+# =============================
+
+# Fichiers Python compilés
 __pycache__/
-*.py[cod]
-*$py.class
-*.so
+*.pyc
+*.pyo
+*.pyd
 .Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
+*.so
 
-# Environnements virtuels
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
-
-# Conda
-.conda/
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# Logs
-*.log
-logs/
-
-# Base de données
-*.db
-*.sqlite3
-
-# Cache
-.cache/
-.pytest_cache/
-.mypy_cache/
-
-# Fichiers temporaires
+# Fichiers temporaires et logs
 *.tmp
-*.temp
+*.log
+*.bak
 
-# Clés privées et secrets
-*.pem
-*.key
-secrets.json
-config.json
-
-# Node.js (si utilisé)
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Fichiers système
+# Fichiers du système
 .DS_Store
 Thumbs.db
 
-# Fichiers de développement
+# Environnements virtuels
+env/
+venv/
+.venv/
+envs/
+
+# Conda
+conda-envs/
+
+# Fichiers de test temporaires ou générés
+CARD3_*.md
+test_card3_*.py
+test_workflow*.py
+*_CORRECTION_*.md
+SURVEILLANCE_GIT_DESACTIVEE.md
+
+# Fichiers de build ou de cache frontend (si applicable)
+node_modules/
+dist/
+build/
+
+# Fichiers de configuration locaux
+.env
 .env.local
-.env.development
-.env.test
-.env.production 
+.env.*.local
+
+# Fichiers de swap ou de sauvegarde de l'OS
+*.swp
+*.swo
+
+# Autres fichiers générés ou inutiles
+*.exe
+*.dll
+*.so
+
+# Fichiers spécifiques au projet
+openapi_dump.json
+*.md (sauf ceux listés ci-dessous)
+!README.md
+!CAHIER_DES_CHARGES.md
+!ROADMAP.md
+!TABLEAU_DE_BORD.md 
