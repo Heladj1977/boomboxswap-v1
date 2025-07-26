@@ -677,30 +677,29 @@ class BoomboxApp {
             const oldPriceText = bnbPriceElement.textContent.replace('$', '');
             const oldPrice = parseFloat(oldPriceText) || 0;
             
-            // Animation de changement de prix
+            // Mettre à jour le prix en blanc
+            bnbPriceElement.textContent = `$${parseFloat(newPrice).toFixed(2)}`;
+            bnbPriceElement.style.color = ''; // Couleur par défaut (blanc)
+            bnbPriceElement.style.transform = ''; // Reset scale
+            
+            // Appliquer l'animation uniquement si le prix a changé
             if (oldPrice > 0 && newPrice !== oldPrice) {
-                const change = newPrice - oldPrice;
+                // Retirer les classes d'animation précédentes
+                bnbPriceElement.classList.remove('price-pulse-up', 'price-pulse-down');
                 
-                // Couleur selon la direction
-                if (change > 0) {
-                    bnbPriceElement.style.color = '#4CAF50'; // Vert pour hausse
-                } else if (change < 0) {
-                    bnbPriceElement.style.color = '#F44336'; // Rouge pour baisse
+                // Ajouter la classe d'animation appropriée
+                if (newPrice > oldPrice) {
+                    bnbPriceElement.classList.add('price-pulse-up');
+                } else if (newPrice < oldPrice) {
+                    bnbPriceElement.classList.add('price-pulse-down');
                 }
                 
-                // Animation de scale
-                bnbPriceElement.style.transform = 'scale(1.05)';
+                // Retirer l'animation après 600ms
                 setTimeout(() => {
-                    bnbPriceElement.style.transform = 'scale(1)';
-                }, 200);
-                
-                // Retour à la couleur normale après 1 seconde
-                setTimeout(() => {
-                    bnbPriceElement.style.color = '';
-                }, 1000);
+                    bnbPriceElement.classList.remove('price-pulse-up', 'price-pulse-down');
+                }, 600);
             }
             
-            bnbPriceElement.textContent = `$${parseFloat(newPrice).toFixed(2)}`;
             console.log('PRIX BNB MIS A JOUR:', newPrice);
         } else if (bnbPriceElement) {
             bnbPriceElement.textContent = 'Prix non disponible';
