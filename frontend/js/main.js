@@ -641,8 +641,7 @@ class BoomboxApp {
             
             // Construire l'objet prices avec le format attendu
             const prices = {
-                BNB: bnbData,
-                USDT: { price: 1.0, cached: true, timestamp: new Date().toISOString() }
+                BNB: bnbData
             };
 
             // Mettre à jour l'interface

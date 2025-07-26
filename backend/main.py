@@ -367,7 +367,9 @@ class BoomboxSwapApp:
 
                 # Logique simplifiée pour BNB et USDT
                 if token == "BNB":
-                    price = contract_manager.get_pancakeswap_price(chain_id, "BNB")
+                    price = self.contract_manager.get_pancakeswap_price(
+                        chain_id, "BNB"
+                    )
                 elif token == "USDT":
                     price = 1.0  # USDT est stable
 
