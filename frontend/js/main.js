@@ -669,56 +669,37 @@ class BoomboxApp {
     /**
      * Mettre à jour l'affichage des prix avec animation
      */
-    updatePriceDisplay(prices) {
-        // BNB/ETH prix avec animation
-        const bnbPriceElement = document.getElementById('bnbPrice');
-        if (bnbPriceElement && prices.BNB && prices.BNB.price) {
-            const newPrice = parseFloat(prices.BNB.price);
-            const oldPriceText = bnbPriceElement.textContent.replace('$', '');
-            const oldPrice = parseFloat(oldPriceText) || 0;
+    updatePriceDisplay(newPrice) {
+        const priceElement = document.getElementById('bnbPrice');
+        if (!priceElement) return;
+        
+        const oldPriceText = priceElement.textContent.replace('$', '');
+        const oldPrice = parseFloat(oldPriceText) || 0;
+        
+        // Mettre à jour le prix en blanc
+        priceElement.textContent = `$${parseFloat(newPrice).toFixed(2)}`;
+        priceElement.style.color = ''; // Couleur par défaut
+        priceElement.style.transform = ''; // Reset scale
+        
+        // Appliquer l'animation uniquement si le prix a changé
+        if (newPrice !== oldPrice) {
+            // Retirer les classes d'animation précédentes
+            priceElement.classList.remove('pulse', 'price-up', 'price-down');
             
-            // Mettre à jour le prix en blanc
-            bnbPriceElement.textContent = `$${parseFloat(newPrice).toFixed(2)}`;
-            bnbPriceElement.style.color = ''; // Couleur par défaut
-            bnbPriceElement.style.transform = ''; // Reset scale
+            // Ajouter l'animation pulse
+            priceElement.classList.add('pulse');
             
-            // Appliquer l'animation uniquement si le prix a changé
-            if (newPrice !== oldPrice) {
-                // Retirer les classes d'animation précédentes
-                bnbPriceElement.classList.remove('pulse', 'price-up', 'price-down');
-                
-                // Ajouter l'animation pulse
-                bnbPriceElement.classList.add('pulse');
-                
-                // Ajouter la classe de couleur selon la direction
-                if (newPrice > oldPrice) {
-                    bnbPriceElement.classList.add('price-up');
-                } else if (newPrice < oldPrice) {
-                    bnbPriceElement.classList.add('price-down');
-                }
-                
-                // Retirer l'animation après 600ms
-                setTimeout(() => {
-                    bnbPriceElement.classList.remove('pulse', 'price-up', 'price-down');
-                }, 600);
+            // Ajouter la classe de couleur selon la direction
+            if (newPrice > oldPrice) {
+                priceElement.classList.add('price-up');
+            } else if (newPrice < oldPrice) {
+                priceElement.classList.add('price-down');
             }
             
-            console.log('PRIX BNB MIS A JOUR:', newPrice);
-        } else if (bnbPriceElement) {
-            bnbPriceElement.textContent = 'Prix non disponible';
-            console.warn('PRIX BNB NON DISPONIBLE');
-        }
-
-        // CAKE prix
-        const cakePriceElement = document.getElementById('cakePrice');
-        if (cakePriceElement && prices.CAKE && prices.CAKE.price) {
-            cakePriceElement.textContent = `$${prices.CAKE.price.toFixed(4)}`;
-        }
-
-        // USDT prix (toujours $1)
-        const usdtPriceElement = document.getElementById('usdtPrice');
-        if (usdtPriceElement && prices.USDT && prices.USDT.price) {
-            usdtPriceElement.textContent = `$${prices.USDT.price.toFixed(2)}`;
+            // Retirer l'animation après 600ms
+            setTimeout(() => {
+                priceElement.classList.remove('pulse', 'price-up', 'price-down');
+            }, 600);
         }
     }
 
