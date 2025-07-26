@@ -1,0 +1,978 @@
+/*
+BOOMBOXSWAP V1 - CSS Gaming Futuriste
+Interface dark/bleu avec effets glassmorphism et animations gaming
+*/
+
+:root {
+    /* Couleurs gaming principales */
+    --primary-bg: #1a2332;
+    --secondary-bg: #2a3342;
+    --accent-blue: #4a90e2;
+    --accent-green: #00ff88;
+    --accent-red: #ff4757;
+    --accent-yellow: #ffa502;
+    --text-primary: #ffffff;
+    --text-secondary: #b8c5d6;
+    --border-color: #3a4a5a;
+
+    /* Boutons musicaux */
+    --btn-play: #00ff88;
+    --btn-eject: #ff4757;
+    --btn-prev: #4a90e2;
+    --btn-next: #4a90e2;
+}
+
+/* Reset et base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--primary-bg);
+    color: var(--text-primary);
+    font-family: 'Courier New', 'Monaco', monospace;
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* Header Gaming */
+.mission-header {
+    background: var(--secondary-bg);
+    border-bottom: 2px solid var(--accent-blue);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(74, 144, 226, 0.3);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo-boombox {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--accent-blue);
+    text-shadow: 0 0 10px var(--accent-blue), 0 0 20px var(--accent-blue);
+    font-family: 'Courier New', 'Monaco', monospace;
+    animation: glow 2s infinite alternate;
+}
+
+.version-tag {
+    background: var(--accent-blue);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.chain-selector {
+    background: var(--primary-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.chain-selector:hover {
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+}
+
+.wallet-connect {
+    background: var(--accent-red);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.wallet-connect:hover {
+    background: #ff3742;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+}
+
+.nav-points {
+    display: flex;
+    gap: 1rem;
+    margin-top: -0.5rem;
+}
+
+.nav-point {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--border-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-point.active {
+    background: var(--accent-blue);
+    box-shadow: 0 0 10px var(--accent-blue);
+}
+
+.nav-point:hover {
+    background: var(--accent-blue);
+    transform: scale(1.2);
+}
+
+/* Dashboard Grid */
+.dashboard-container {
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    min-height: calc(100vh - 120px);
+}
+
+/* Cards Gaming avec Glassmorphism */
+.mission-card {
+    background: rgba(42, 51, 66, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(74, 144, 226, 0.3);
+    border-radius: 10px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 200px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Animation barre bleue qui traverse */
+.mission-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-blue), transparent);
+    transition: left 0.5s ease;
+    z-index: 1;
+}
+
+.mission-card:hover::before {
+    left: 100%;
+}
+
+.mission-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(74, 144, 226, 0.4);
+    border-color: var(--accent-blue);
+    background: rgba(42, 51, 66, 0.9);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-shrink: 0;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--accent-blue);
+}
+
+.card-icon {
+    color: var(--accent-blue);
+    font-size: 20px;
+    text-shadow: 0 0 5px var(--accent-blue);
+}
+
+.card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Styles pour les items */
+.balance-item, .yield-item, .price-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.balance-item:last-child, .yield-item:last-child, .price-item:last-child {
+    border-bottom: none;
+}
+
+.token-name, .yield-label, .price-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.token-balance, .yield-value, .price-value {
+    font-weight: bold;
+    color: var(--accent-green);
+}
+
+/* Cards du bas - Même hauteur */
+.mission-card:nth-child(4),
+.mission-card:nth-child(5),
+.mission-card:nth-child(6) {
+    min-height: 250px;
+}
+
+/* Input et boutons */
+.deposit-input {
+    margin-bottom: 1rem;
+    flex: 1;
+}
+
+.amount-input {
+    width: 100%;
+    background: var(--primary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 0.75rem;
+    color: var(--text-primary);
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    font-family: inherit;
+}
+
+.percentage-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.percent-btn {
+    flex: 1;
+    padding: 0.5rem;
+    background: transparent;
+    border: 1px solid var(--accent-blue);
+    border-radius: 5px;
+    color: var(--accent-blue);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    font-family: inherit;
+}
+
+.percent-btn:hover {
+    background: var(--accent-blue);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.lp-estimate {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-top: 1px solid var(--border-color);
+}
+
+.estimate-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.estimate-value {
+    font-weight: bold;
+    color: var(--accent-green);
+}
+
+/* Swap Triangle */
+.swap-triangle {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex: 1;
+    justify-content: center;
+}
+
+.swap-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background: var(--primary-bg);
+    border-radius: 5px;
+    border: 1px solid var(--border-color);
+}
+
+.swap-from, .swap-to {
+    color: var(--text-secondary);
+    font-weight: bold;
+}
+
+.swap-arrow-icon {
+    color: var(--accent-blue);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.swap-slippage {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-top: 1px solid var(--border-color);
+}
+
+.slippage-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.slippage-value {
+    font-weight: bold;
+    color: var(--accent-green);
+}
+
+/* Boutons musicaux Gaming */
+.music-controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1rem;
+    flex: 1;
+    align-items: center;
+}
+
+.btn-music {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btn-play {
+    background: var(--btn-play);
+    color: var(--primary-bg);
+}
+
+.btn-eject {
+    background: var(--btn-eject);
+    color: white;
+}
+
+.btn-prev, .btn-next {
+    background: var(--btn-prev);
+    color: white;
+}
+
+.btn-music:hover {
+    transform: scale(1.1) translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.btn-music:active {
+    transform: scale(0.95);
+}
+
+/* Position Info */
+.position-info {
+    margin-top: 1rem;
+    flex-shrink: 0;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.25rem 0;
+}
+
+.info-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.info-value {
+    color: var(--text-primary);
+    font-weight: bold;
+}
+
+/* Prix Change */
+.price-change {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-top: 1px solid var(--border-color);
+}
+
+.change-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.change-value {
+    font-weight: bold;
+    color: var(--accent-green);
+}
+
+/* Animations Gaming */
+@keyframes glow {
+    0% {
+        text-shadow: 0 0 10px var(--accent-blue);
+    }
+    100% {
+        text-shadow: 0 0 20px var(--accent-blue), 0 0 30px var(--accent-blue);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+.glow {
+    animation: glow 2s infinite alternate;
+}
+
+.smart-card {
+    z-index: 1 !important;
+}
+#chain-selector {
+    position: relative !important;
+}
+#chain-options {
+    position: fixed !important;
+    z-index: 2147483647 !important;
+    background: rgba(42, 51, 66, 0.98) !important;
+    border: 1px solid rgba(74, 144, 226, 0.4) !important;
+    border-radius: 8px !important;
+    max-width: 120px !important;
+}
+#chain-options .chain-option {
+    display: block !important;
+    padding: 8px 12px;
+    color: #ffffff;
+    text-decoration: none;
+    transition: background-color 0.2s;
+    font-size: 14px;
+    white-space: nowrap;
+}
+#chain-options .chain-option:hover {
+    background: rgba(74, 144, 226, 0.2);
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+    }
+
+    .mission-header {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+
+    .music-controls {
+        flex-wrap: wrap;
+    }
+
+    .dashboard-container {
+        padding: 1rem;
+    }
+}
+
+/* === RÉDUCTION TAILLE MODAL WALLETCONNECT (24/07/2025) === */
+w3m-modal {
+    --w3m-z-index: 2147483647 !important;
+}
+w3m-modal::part(overlay) {
+    max-height: 90vh !important;
+    overflow: hidden !important;
+}
+.w3m-modal-card,
+.web3modal-modal-card {
+    width: 400px !important;
+    max-width: 400px !important;
+    min-width: 300px !important;
+    max-height: 600px !important;
+    height: auto !important;
+    overflow: hidden !important;
+}
+.w3m-qr-container,
+.web3modal-qr-container {
+    max-height: 300px !important;
+    overflow: hidden !important;
+}
+.w3m-qr-code,
+.web3modal-qr-code {
+    width: 200px !important;
+    height: 200px !important;
+    max-width: 200px !important;
+    max-height: 200px !important;
+}
+.w3m-wallet-list,
+.web3modal-provider-container {
+    max-height: 200px !important;
+    overflow-y: auto !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+}
+.w3m-wallet-item,
+.web3modal-provider-wrapper {
+    min-height: auto !important;
+    height: 60px !important;
+    padding: 8px !important;
+}
+.w3m-wallet-name,
+.web3modal-provider-description {
+    display: none !important;
+}
+.w3m-modal-footer,
+.web3modal-modal-footer {
+    padding: 8px 16px !important;
+    min-height: auto !important;
+}
+.w3m-button,
+.web3modal-button {
+    padding: 8px 16px !important;
+    min-height: auto !important;
+}
+.w3m-modal-header,
+.web3modal-modal-header {
+    padding: 12px 16px !important;
+    min-height: auto !important;
+}
+.w3m-modal-content,
+.web3modal-modal-content {
+    max-height: 500px !important;
+    overflow: hidden !important;
+    padding: 0 16px 16px 16px !important;
+}
+w3m-router {
+    max-height: 600px !important;
+    overflow: hidden !important;
+}
+w3m-connect-view,
+w3m-qr-code-view {
+    max-height: 400px !important;
+    overflow: hidden !important;
+}
+:root {
+    --w3m-modal-width: 400px !important;
+    --w3m-modal-height: 600px !important;
+    --w3m-qr-size: 200px !important;
+}
+/* AppKit v4+ (nouveaux sélecteurs) */
+.appkit-modal {
+    --w3m-modal-width: 400px !important;
+    --w3m-modal-height: 600px !important;
+}
+appkit-modal::part(overlay),
+reown-modal::part(overlay) {
+    max-height: 90vh !important;
+}
+
+/* === MODAL WALLETCONNECT COMPACT STYLE PANCAKESWAP (24/07/2025) === */
+w3m-modal,
+[data-testid="w3m-modal"],
+.w3m-modal,
+web3modal,
+.web3modal,
+appkit-modal,
+reown-modal,
+[role="dialog"][class*="modal"] {
+  max-width: 400px !important;
+  max-height: 350px !important;
+  height: auto !important;
+  overflow: hidden !important;
+  position: fixed !important;
+  z-index: 999999 !important;
+}
+.w3m-modal-container,
+.web3modal-modal-container {
+  max-height: 300px !important;
+  overflow: hidden !important;
+  padding: 12px !important;
+}
+.w3m-qr-code,
+.web3modal-qr-code,
+canvas[class*="qr"],
+svg[class*="qr"] {
+  width: 150px !important;
+  height: 150px !important;
+  max-width: 150px !important;
+  max-height: 150px !important;
+}
+.w3m-qr-container,
+.web3modal-qr-container {
+  padding: 8px !important;
+  max-height: 180px !important;
+}
+.w3m-modal-header,
+.web3modal-modal-header {
+  padding: 8px 16px !important;
+  min-height: auto !important;
+  height: auto !important;
+}
+.w3m-modal-footer,
+.web3modal-modal-footer {
+  padding: 8px 16px !important;
+  min-height: auto !important;
+}
+.w3m-modal-content,
+.web3modal-modal-content {
+  max-height: 250px !important;
+  overflow: hidden !important;
+  padding: 8px !important;
+}
+.w3m-wallet-list,
+.web3modal-wallet-list {
+  max-height: 120px !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 4px !important;
+}
+.w3m-wallet-item,
+.web3modal-wallet-item {
+  height: 40px !important;
+  min-height: 40px !important;
+  padding: 4px 8px !important;
+  font-size: 12px !important;
+}
+.w3m-wallet-name,
+.w3m-wallet-description,
+.web3modal-wallet-description {
+  display: none !important;
+}
+.w3m-text,
+.web3modal-text {
+  font-size: 12px !important;
+  line-height: 1.2 !important;
+}
+.w3m-button,
+.web3modal-button {
+  padding: 6px 12px !important;
+  font-size: 12px !important;
+  min-height: auto !important;
+}
+:root {
+  --w3m-modal-width: 400px !important;
+  --w3m-modal-height: 350px !important;
+  --w3m-qr-size: 150px !important;
+  --w3m-modal-border-radius: 8px !important;
+}
+appkit-modal::part(modal),
+reown-modal::part(modal) {
+  max-width: 400px !important;
+  max-height: 350px !important;
+  overflow: hidden !important;
+}
+/* OVERRIDE FORCÉ STYLE PANCAKESWAP */
+[class*="modal"] {
+  max-height: 350px !important;
+  overflow: hidden !important;
+}
+[class*="qr"] {
+  max-width: 150px !important;
+  max-height: 150px !important;
+}
+w3m-router,
+w3m-connect-view,
+w3m-qr-code-view {
+  max-height: 300px !important;
+  overflow: hidden !important;
+}
+
+/* === CORRECTION URGENTE - CONTOURS NOIRS QR CODE (24/07/2025) === */
+/* Suppression de tous les styles de debug QR et WalletConnect */
+.w3m-qr-code,
+.web3modal-qr-code,
+canvas[class*="qr"],
+svg[class*="qr"],
+[class*="qr"] canvas,
+[class*="qr"] svg {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+.w3m-qr-code img,
+.w3m-qr-code svg,
+.web3modal-qr-code img,
+.web3modal-qr-code svg,
+[aria-label*="WalletConnect"],
+[alt*="WalletConnect"] {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+.w3m-qr-container,
+.web3modal-qr-container,
+[class*="qr-container"] {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  padding: 16px !important;
+}
+*[class*="qr"] {
+  border: none !important;
+  outline: none !important;
+}
+*[class*="walletconnect"] {
+  border: none !important;
+  outline: none !important;
+}
+/* Styles QR propres et professionnels */
+.w3m-qr-code,
+.web3modal-qr-code,
+canvas[class*="qr"],
+svg[class*="qr"] {
+  width: 200px !important;
+  height: 200px !important;
+  border-radius: 12px !important;
+  background: #ffffff !important;
+  padding: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+.w3m-qr-container,
+.web3modal-qr-container {
+  background: transparent !important;
+  border: none !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 16px !important;
+}
+
+/* === MODAL WALLETCONNECT STYLE BOOMBOXSWAP (24/07/2025) === */
+
+w3m-modal,
+[data-testid="w3m-modal"],
+.w3m-modal,
+web3modal,
+.web3modal,
+appkit-modal,
+reown-modal {
+  --w3m-background-color: rgba(42, 51, 66, 0.95) !important;
+  --w3m-accent-color: #4A90E2 !important;
+}
+
+.w3m-modal-card,
+.web3modal-modal-card,
+w3m-router,
+[class*="modal-container"] {
+  background: rgba(42, 51, 66, 0.95) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(74, 144, 226, 0.3) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1) inset !important;
+  max-width: 420px !important;
+  max-height: 600px !important;
+  overflow: hidden !important;
+}
+
+.w3m-modal-header,
+.web3modal-modal-header {
+  background: rgba(42, 51, 66, 0.8) !important;
+  border-bottom: 1px solid rgba(74, 144, 226, 0.2) !important;
+  padding: 20px !important;
+  color: #ffffff !important;
+}
+
+.w3m-modal-title,
+.web3modal-modal-title,
+h1, h2, h3 {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  font-size: 18px !important;
+}
+
+.w3m-modal-content,
+.web3modal-modal-content {
+  background: rgba(42, 51, 66, 0.95) !important;
+  padding: 24px !important;
+  color: #ffffff !important;
+}
+
+.w3m-modal-footer,
+.web3modal-modal-footer {
+  background: rgba(42, 51, 66, 0.8) !important;
+  border-top: 1px solid rgba(74, 144, 226, 0.2) !important;
+  padding: 16px 20px !important;
+}
+
+/* QR CODE STYLE BOOMBOXSWAP */
+.w3m-qr-container,
+.web3modal-qr-container {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-radius: 12px !important;
+  padding: 16px !important;
+  margin: 16px auto !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  border: none !important;
+  max-width: 240px !important;
+}
+
+.w3m-qr-code,
+.web3modal-qr-code,
+canvas[class*="qr"],
+svg[class*="qr"] {
+  width: 200px !important;
+  height: 200px !important;
+  border: none !important;
+  outline: none !important;
+  background: transparent !important;
+  border-radius: 8px !important;
+}
+
+.w3m-qr-code img,
+.w3m-qr-code svg,
+.web3modal-qr-code img,
+.web3modal-qr-code svg {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: white !important;
+  border-radius: 50% !important;
+  padding: 4px !important;
+}
+
+/* BOUTONS STYLE BOOMBOXSWAP */
+.w3m-button,
+.web3modal-button,
+button {
+  background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%) !important;
+  border: 1px solid rgba(74, 144, 226, 0.3) !important;
+  border-radius: 8px !important;
+  color: #ffffff !important;
+  padding: 12px 24px !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 2px 8px rgba(74, 144, 226, 0.2) !important;
+}
+
+.w3m-button:hover,
+.web3modal-button:hover {
+  background: linear-gradient(135deg, #357ABD 0%, #2E6B9E 100%) !important;
+  box-shadow: 0 4px 16px rgba(74, 144, 226, 0.3) !important;
+  transform: translateY(-1px) !important;
+}
+
+.w3m-wallet-item,
+.web3modal-wallet-item {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px !important;
+  padding: 12px !important;
+  transition: all 0.3s ease !important;
+}
+
+.w3m-wallet-item:hover,
+.web3modal-wallet-item:hover {
+  background: rgba(74, 144, 226, 0.2) !important;
+  border-color: rgba(74, 144, 226, 0.4) !important;
+}
+
+/* TEXTES STYLE BOOMBOXSWAP */
+.w3m-text,
+.web3modal-text,
+p, span, div {
+  color: #ffffff !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto !important;
+}
+
+.w3m-text-small,
+.web3modal-text-small {
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-size: 14px !important;
+}
+
+.w3m-link,
+.web3modal-link,
+a {
+  color: #4A90E2 !important;
+  text-decoration: none !important;
+}
+
+.w3m-link:hover,
+.web3modal-link:hover {
+  color: #6BB6FF !important;
+}
+
+/* OVERLAY STYLE BOOMBOXSWAP */
+.w3m-overlay,
+.web3modal-overlay,
+[class*="overlay"] {
+  background: rgba(0, 0, 0, 0.7) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+w3m-modal,
+.w3m-modal {
+  animation: modalFadeIn 0.3s ease-out !important;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}

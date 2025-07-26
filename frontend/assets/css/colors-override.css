@@ -1,0 +1,265 @@
+/*
+BOOMBOXSWAP - Colors Override CSS
+Override des couleurs pour personnalisation
+*/
+
+/* Override des couleurs principales */
+:root {
+    /* Couleurs BOOMBOXSWAP spécifiques */
+    --boombox-primary: #4a90e2;
+    --boombox-secondary: #00ff88;
+    --boombox-accent: #ff4757;
+    --boombox-warning: #ffa502;
+    --boombox-success: #00ff88;
+    --boombox-error: #ff4757;
+
+    /* Couleurs de fond */
+    --boombox-bg-dark: #1a2332;
+    --boombox-bg-medium: #2a3342;
+    --boombox-bg-light: #3a4a5a;
+
+    /* Couleurs de texte */
+    --boombox-text-primary: #ffffff;
+    --boombox-text-secondary: #b8c5d6;
+    --boombox-text-muted: #8a9ba8;
+}
+
+.metamask-btn-connected {
+    background: var(--boombox-success) !important;
+    color: var(--boombox-text-primary) !important;
+    border: none !important;
+    padding: 0.75rem 1.5rem !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    font-weight: 600 !important;
+    font-family: inherit !important;
+    transition: all 0.3s ease !important;
+    font-size: 0.9rem !important;
+}
+.metamask-btn-connected:hover {
+    background: #00e676 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 15px rgba(0, 255, 136, 0.4) !important;
+}
+
+/* Override des couleurs pour les boutons musicaux */
+.music-btn-primary {
+    background: var(--boombox-success) !important;
+    color: var(--boombox-bg-dark) !important;
+}
+
+.music-btn-secondary {
+    background: var(--boombox-error) !important;
+    color: var(--boombox-text-primary) !important;
+}
+
+.music-btn-nav {
+    background: var(--boombox-primary) !important;
+    color: var(--boombox-text-primary) !important;
+}
+
+/* Override des couleurs pour les cards */
+.smart-card {
+    background: rgba(42, 51, 66, 0.8) !important;
+    border-color: rgba(74, 144, 226, 0.3) !important;
+}
+
+.smart-card:hover {
+    border-color: var(--boombox-primary) !important;
+    box-shadow: 0 10px 30px rgba(74, 144, 226, 0.4) !important;
+}
+
+/* Override des couleurs pour le header */
+.glass-header {
+    background: rgba(42, 51, 66, 0.9) !important;
+    border-bottom-color: rgba(74, 144, 226, 0.3) !important;
+}
+
+.logo-title {
+    color: var(--boombox-primary) !important;
+    text-shadow: 0 0 10px rgba(74, 144, 226, 0.5) !important;
+}
+
+.metamask-btn-disconnected {
+    background: var(--boombox-error) !important;
+    color: var(--boombox-text-primary) !important;
+}
+
+.metamask-btn-disconnected:hover {
+    background: #ff3742 !important;
+}
+
+/* Override des couleurs pour les valeurs */
+.balance-value,
+.earnings-value,
+.price-main,
+.total-value {
+    color: var(--boombox-success) !important;
+}
+
+.estimation-value {
+    color: var(--boombox-primary) !important;
+}
+
+/* Override des couleurs pour les labels */
+.balance-label,
+.earnings-label,
+.total-label,
+.estimation-label {
+    color: var(--boombox-text-secondary) !important;
+}
+
+/* Override des couleurs pour les titres */
+.card-title {
+    color: var(--boombox-primary) !important;
+}
+
+.card-icon {
+    color: var(--boombox-primary) !important;
+    text-shadow: 0 0 5px var(--boombox-primary) !important;
+}
+
+/* Override des couleurs pour les inputs */
+.deposit-input {
+    background: var(--boombox-bg-dark) !important;
+    border-color: var(--boombox-bg-light) !important;
+    color: var(--boombox-text-primary) !important;
+}
+
+.deposit-input:focus {
+    border-color: var(--boombox-primary) !important;
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.3) !important;
+}
+
+/* Override des couleurs pour les boutons pourcentage */
+.percentage-btn {
+    border-color: var(--boombox-primary) !important;
+    color: var(--boombox-primary) !important;
+}
+
+.percentage-btn:hover {
+    background: var(--boombox-primary) !important;
+    color: var(--boombox-text-primary) !important;
+}
+
+/* Override des couleurs pour les éléments de navigation */
+.nav-dot.active {
+    background: var(--boombox-primary) !important;
+    box-shadow: 0 0 10px var(--boombox-primary) !important;
+}
+
+.nav-dot:hover {
+    background: var(--boombox-primary) !important;
+}
+
+/* Override des couleurs pour les effets de prix */
+.price-change {
+    background: rgba(0, 255, 136, 0.1) !important;
+    border-color: rgba(0, 255, 136, 0.3) !important;
+}
+
+.estimation-section {
+    background: rgba(74, 144, 226, 0.1) !important;
+    border-color: rgba(74, 144, 226, 0.3) !important;
+}
+
+/* Override des couleurs pour les animations */
+.smart-card::before {
+    background: linear-gradient(90deg, transparent, var(--boombox-primary), transparent) !important;
+}
+
+/* Override des couleurs pour les effets de hover */
+.smart-card:hover {
+    background: rgba(42, 51, 66, 0.9) !important;
+}
+
+/* Override des couleurs pour les notifications */
+.notification-arcade {
+    background: linear-gradient(45deg, var(--boombox-primary), var(--boombox-success)) !important;
+}
+
+/* Override des couleurs pour les effets arcade */
+.arcade-border {
+    background: linear-gradient(45deg, var(--boombox-primary), var(--boombox-success)) border-box !important;
+}
+
+/* Override des couleurs pour les effets de glow */
+.real-time-pulse {
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.5) !important;
+}
+
+/* Override des couleurs pour les états spéciaux */
+.status-success {
+    color: var(--boombox-success) !important;
+}
+
+.status-warning {
+    color: var(--boombox-warning) !important;
+}
+
+.status-error {
+    color: var(--boombox-error) !important;
+}
+
+/* Override des couleurs pour les effets de loading */
+.loading-dots {
+    color: var(--boombox-primary) !important;
+}
+
+/* Override des couleurs pour les crypto logos */
+.crypto-logo {
+    color: var(--boombox-primary) !important;
+}
+
+/* Override des couleurs pour les input suffixes */
+.input-suffix {
+    color: var(--boombox-text-secondary) !important;
+}
+
+/* Override des couleurs pour les estimation titles */
+.estimation-title {
+    color: var(--boombox-text-secondary) !important;
+}
+
+.wallet-header-btn {
+    border: none !important;
+    padding: 0.75rem 1.5rem !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    font-weight: 600 !important;
+    font-family: inherit !important;
+    transition: all 0.3s ease !important;
+    font-size: 0.9rem !important;
+    display: inline-block !important;
+}
+.wallet-header-btn.disconnected {
+    background: var(--boombox-error) !important;
+    color: var(--boombox-text-primary) !important;
+}
+.wallet-header-btn.connected {
+    background: var(--boombox-success) !important;
+    color: var(--boombox-text-primary) !important;
+}
+.wallet-header-btn.disconnected:hover {
+    background: #ff3742 !important;
+}
+.wallet-header-btn.connected:hover {
+    background: #00e676 !important;
+    box-shadow: 0 4px 15px rgba(0, 255, 136, 0.4) !important;
+}
+
+header .wallet-header-btn.connected,
+.metamask-section .wallet-header-btn.connected,
+#metamask-btn.wallet-header-btn.connected {
+    background: #00ff88 !important;
+    color: #fff !important;
+    border: none !important;
+    padding: 0.75rem 1.5rem !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    font-weight: 600 !important;
+    font-family: inherit !important;
+    transition: all 0.3s ease !important;
+    font-size: 0.9rem !important;
+    display: inline-block !important;
+}

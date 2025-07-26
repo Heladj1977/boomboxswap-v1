@@ -1,0 +1,198 @@
+/*
+BOOMBOXSWAP - Arcade Display CSS
+Effets d'affichage arcade et animations spéciales
+*/
+
+/* Effets d'affichage arcade */
+.real-time-pulse {
+    animation: realTimePulse 1.5s ease-in-out infinite;
+}
+
+@keyframes realTimePulse {
+    0% {
+        text-shadow: 0 0 5px rgba(0, 255, 136, 0.5);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(0, 255, 136, 0.8), 0 0 30px rgba(0, 255, 136, 0.6);
+    }
+    100% {
+        text-shadow: 0 0 5px rgba(0, 255, 136, 0.5);
+    }
+}
+
+/* Effets de glitch pour les prix */
+.price-main.glitch {
+    animation: glitch 0.3s ease-in-out infinite;
+}
+
+@keyframes glitch {
+    0% {
+        transform: translate(0);
+    }
+    20% {
+        transform: translate(-2px, 2px);
+    }
+    40% {
+        transform: translate(-2px, -2px);
+    }
+    60% {
+        transform: translate(2px, 2px);
+    }
+    80% {
+        transform: translate(2px, -2px);
+    }
+    100% {
+        transform: translate(0);
+    }
+}
+
+/* Effets de scan pour les cards */
+.smart-card.scan-effect::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(74, 144, 226, 0.1), transparent);
+    animation: scan 2s ease-in-out infinite;
+}
+
+@keyframes scan {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+/* Effets de typewriter pour les titres */
+.card-title.typewriter {
+    overflow: hidden;
+    border-right: 2px solid var(--accent-blue);
+    white-space: nowrap;
+    animation: typewriter 3s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typewriter {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blink-caret {
+    from, to {
+        border-color: transparent;
+    }
+    50% {
+        border-color: var(--accent-blue);
+    }
+}
+
+/* Effets de hover avancés */
+.smart-card.hover-glow:hover {
+    box-shadow: 0 0 30px rgba(74, 144, 226, 0.6);
+}
+
+.smart-card.hover-scale:hover {
+    transform: scale(1.02) translateY(-5px);
+}
+
+/* Effets de loading */
+.loading-dots {
+    display: inline-block;
+}
+
+.loading-dots::after {
+    content: '';
+    animation: loadingDots 1.5s infinite;
+}
+
+@keyframes loadingDots {
+    0%, 20% {
+        content: '';
+    }
+    40% {
+        content: '.';
+    }
+    60% {
+        content: '..';
+    }
+    80%, 100% {
+        content: '...';
+    }
+}
+
+/* Effets de notification arcade */
+.notification-arcade {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(45deg, var(--accent-blue), var(--accent-green));
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    z-index: 10000;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.notification-arcade.show {
+    transform: translateX(0);
+}
+
+/* Effets de bouton arcade */
+.music-btn-primary.arcade-mode {
+    background: linear-gradient(45deg, var(--btn-play), #00cc6a);
+    box-shadow: 0 4px 15px rgba(0, 255, 136, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.music-btn-primary.arcade-mode:hover {
+    background: linear-gradient(45deg, #00cc6a, var(--btn-play));
+    box-shadow: 0 8px 25px rgba(0, 255, 136, 0.6);
+    transform: scale(1.1) translateY(-3px);
+}
+
+/* Effets de texte arcade */
+.arcade-text {
+    font-family: 'Courier New', monospace;
+    text-shadow: 0 0 10px currentColor;
+    animation: arcadeGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes arcadeGlow {
+    from {
+        text-shadow: 0 0 5px currentColor;
+    }
+    to {
+        text-shadow: 0 0 20px currentColor, 0 0 30px currentColor;
+    }
+}
+
+/* Effets de bordure arcade */
+.arcade-border {
+    border: 2px solid transparent;
+    background: linear-gradient(45deg, var(--accent-blue), var(--accent-green)) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    animation: borderRotate 3s linear infinite;
+}
+
+@keyframes borderRotate {
+    0% {
+        background: linear-gradient(0deg, var(--accent-blue), var(--accent-green)) border-box;
+    }
+    100% {
+        background: linear-gradient(360deg, var(--accent-blue), var(--accent-green)) border-box;
+    }
+}
