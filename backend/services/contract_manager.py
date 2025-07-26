@@ -430,7 +430,7 @@ class ContractManager:
         
         # Cas spécial USDT - prix fixe
         if token == 'USDT':
-            return 1.0
+            return {"price": 1.0, "cached": False}
         
         # Autres tokens - logique existante simplifiée
         FEE_TIERS = [2500, 500, 10000, 100]
@@ -495,8 +495,11 @@ class ContractManager:
                 # USDT est token1, prix direct
                 final_price = price_raw
             
-            logger.info(f"[PRIX] {token}/{chain_key} pool={pool_address} price={final_price}")
-            return float(final_price)
+            logger.info(
+                f"[PRIX] {token}/{chain_key} pool={pool_address} "
+                f"price={final_price}"
+            )
+            return {"price": float(final_price), "cached": False}
             
         except Exception as e:
             logger.error(f"[MISSION ECHOUEE] slot0() sur pool {pool_address}: {e}")
