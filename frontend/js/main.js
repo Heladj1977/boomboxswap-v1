@@ -666,42 +666,39 @@ class BoomboxApp {
         }
     }
 
-    /**
-     * Mettre à jour l'affichage des prix avec animation
-     */
-    updatePriceDisplay(newPrice) {
-        const priceElement = document.getElementById('bnbPrice');
-        if (!priceElement) return;
+function updatePriceDisplay(newPrice) {
+    const priceElement = document.getElementById('bnbPrice');
+    if (!priceElement) return;
+    
+    const oldPriceText = priceElement.textContent.replace('$', '');
+    const oldPrice = parseFloat(oldPriceText) || 0;
+    
+    // Mettre à jour le prix en blanc
+    priceElement.textContent = `$${parseFloat(newPrice).toFixed(2)}`;
+    priceElement.style.color = ''; // Couleur par défaut (blanc)
+    priceElement.style.transform = ''; // Reset scale
+    
+    // Appliquer l'animation uniquement si le prix a changé
+    if (newPrice !== oldPrice) {
+        // Retirer les classes d'animation précédentes
+        priceElement.classList.remove('pulse', 'price-up', 'price-down');
         
-        const oldPriceText = priceElement.textContent.replace('$', '');
-        const oldPrice = parseFloat(oldPriceText) || 0;
+        // Ajouter l'animation pulse
+        priceElement.classList.add('pulse');
         
-        // Mettre à jour le prix en blanc
-        priceElement.textContent = `$${parseFloat(newPrice).toFixed(2)}`;
-        priceElement.style.color = ''; // Couleur par défaut
-        priceElement.style.transform = ''; // Reset scale
-        
-        // Appliquer l'animation uniquement si le prix a changé
-        if (newPrice !== oldPrice) {
-            // Retirer les classes d'animation précédentes
-            priceElement.classList.remove('pulse', 'price-up', 'price-down');
-            
-            // Ajouter l'animation pulse
-            priceElement.classList.add('pulse');
-            
-            // Ajouter la classe de couleur selon la direction
-            if (newPrice > oldPrice) {
-                priceElement.classList.add('price-up');
-            } else if (newPrice < oldPrice) {
-                priceElement.classList.add('price-down');
-            }
-            
-            // Retirer l'animation après 600ms
-            setTimeout(() => {
-                priceElement.classList.remove('pulse', 'price-up', 'price-down');
-            }, 600);
+        // Ajouter la classe de couleur selon la direction
+        if (newPrice > oldPrice) {
+            priceElement.classList.add('price-up'); // Vert
+        } else if (newPrice < oldPrice) {
+            priceElement.classList.add('price-down'); // Rouge
         }
+        
+        // Retirer l'animation après 600ms
+        setTimeout(() => {
+            priceElement.classList.remove('pulse', 'price-up', 'price-down');
+        }, 600);
     }
+}
 
 
 
