@@ -670,37 +670,58 @@ class BoomboxApp {
      * Mettre à jour l'affichage des prix avec animation
      */
     updatePriceDisplay(newPrice) {
+        // --- AJOUT DE LOGS DE DÉBOGAGE ---
+        console.log(`[DEBUG] updatePriceDisplay appelée avec newPrice: ${newPrice}`);
+
         const priceElement = document.getElementById('bnbPrice');
-        if (!priceElement) return;
-        
+        if (!priceElement) {
+            console.warn("[DEBUG] Élément avec ID 'bnbPrice' non trouvé.");
+            return;
+        }
+
         const oldPriceText = priceElement.textContent.replace('$', '');
         const oldPrice = parseFloat(oldPriceText) || 0;
-        
+        console.log(`[DEBUG] oldPriceText: '${oldPriceText}', oldPrice (parsed): ${oldPrice}`);
+
         // Mettre à jour le prix en blanc
         priceElement.textContent = `$${parseFloat(newPrice).toFixed(2)}`;
         priceElement.style.color = ''; // Couleur par défaut (blanc)
         priceElement.style.transform = ''; // Reset scale
-        
+        console.log(`[DEBUG] Texte du prix mis à jour dans l'élément.`);
+
         // Appliquer l'animation uniquement si le prix a changé
         if (newPrice !== oldPrice) {
+            console.log(`[DEBUG] Changement de prix détecté. Déclenchement de l'animation.`);
+            
             // Retirer les classes d'animation précédentes
             priceElement.classList.remove('pulse', 'price-up', 'price-down');
-            
+            console.log(`[DEBUG] Classes d'animation précédentes retirées.`);
+
             // Ajouter l'animation pulse
             priceElement.classList.add('pulse');
-            
+            console.log(`[DEBUG] Classe 'pulse' ajoutée.`);
+
             // Ajouter la classe de couleur selon la direction
             if (newPrice > oldPrice) {
                 priceElement.classList.add('price-up'); // Vert
+                console.log(`[DEBUG] Classe 'price-up' (verte) ajoutée.`);
             } else if (newPrice < oldPrice) {
                 priceElement.classList.add('price-down'); // Rouge
+                 console.log(`[DEBUG] Classe 'price-down' (rouge) ajoutée.`);
+            } else {
+                 console.log(`[DEBUG] Prix identique (devrait pas arriver ici à cause du if), pas de couleur spécifique.`);
             }
-            
+
             // Retirer l'animation après 600ms
             setTimeout(() => {
                 priceElement.classList.remove('pulse', 'price-up', 'price-down');
+                console.log(`[DEBUG] Classes d'animation retirées après timeout.`);
             }, 600);
+
+        } else {
+            console.log(`[DEBUG] Pas de changement de prix. Aucune animation déclenchée.`);
         }
+        // --- FIN DES LOGS DE DÉBOGAGE ---
     }
 
 
