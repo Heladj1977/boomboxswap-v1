@@ -593,10 +593,10 @@ class BoomboxApp {
      * Démarrer monitoring prix en temps réel
      */
     startPriceMonitoring() {
-        // Afficher "Chargement..." immédiatement
+        // Afficher un prix par défaut immédiatement pour éviter "Chargement..."
         const bnbPriceElement = document.getElementById('bnbPrice');
         if (bnbPriceElement) {
-            bnbPriceElement.textContent = 'Chargement...';
+            bnbPriceElement.textContent = '$0.00';
         }
         
         // Utiliser EventSource pour les mises à jour en temps réel
@@ -632,21 +632,16 @@ class BoomboxApp {
         // Mise à jour initiale
         this.updatePrices();
 
-        // Mise à jour toutes les 30 secondes
+        // Mise à jour toutes les 10 secondes pour test (au lieu de 30)
         this.priceUpdateInterval = setInterval(() => {
             this.updatePrices();
-        }, 30000);
+        }, 10000);
     }
 
     /**
      * Mettre à jour les prix
      */
     async updatePrices() {
-        if (!window.BoomboxAPI) {
-            console.warn('BoomboxAPI non disponible');
-            return;
-        }
-
         try {
             // Utiliser BSC par défaut si pas de chain manager
             let chainId = 'bsc';
@@ -655,7 +650,25 @@ class BoomboxApp {
             }
 
             console.log('MISE A JOUR PRIX - Chain:', chainId);
-            const prices = await window.BoomboxAPI.updatePrices(chainId);
+            
+            // Appel direct à l'API backend pour BNB
+            const bnbResponse = await fetch(`/api/v1/price/${chainId}/BNB`);
+            if (!bnbResponse.ok) {
+                console.error('Échec récupération prix BNB:', await bnbResponse.text());
+                const bnbPriceElement = document.getElementById('bnbPrice');
+                if (bnbPriceElement) {
+                    bnbPriceElement.textContent = 'Prix non disponible';
+                }
+                return;
+            }
+            
+            const bnbData = await bnbResponse.json();
+            
+            // Construire l'objet prices avec le format attendu
+            const prices = {
+                BNB: bnbData,
+                USDT: { price: 1.0, cached: true, timestamp: new Date().toISOString() }
+            };
 
             // Mettre à jour l'interface
             this.updatePriceDisplay(prices);
@@ -674,20 +687,47 @@ class BoomboxApp {
             // Afficher erreur dans l'interface
             const bnbPriceElement = document.getElementById('bnbPrice');
             if (bnbPriceElement) {
-                bnbPriceElement.textContent = 'Erreur prix';
+                bnbPriceElement.textContent = 'Prix non disponible';
             }
         }
     }
 
     /**
-     * Mettre à jour l'affichage des prix
+     * Mettre à jour l'affichage des prix avec animation
      */
     updatePriceDisplay(prices) {
-        // BNB/ETH prix
+        // BNB/ETH prix avec animation
         const bnbPriceElement = document.getElementById('bnbPrice');
         if (bnbPriceElement && prices.BNB && prices.BNB.price) {
-            bnbPriceElement.textContent = `$${prices.BNB.price.toFixed(2)}`;
-            console.log('PRIX BNB MIS A JOUR:', prices.BNB.price);
+            const newPrice = parseFloat(prices.BNB.price);
+            const oldPriceText = bnbPriceElement.textContent.replace('$', '');
+            const oldPrice = parseFloat(oldPriceText) || 0;
+            
+            // Animation de changement de prix
+            if (oldPrice > 0 && newPrice !== oldPrice) {
+                const change = newPrice - oldPrice;
+                
+                // Couleur selon la direction
+                if (change > 0) {
+                    bnbPriceElement.style.color = '#4CAF50'; // Vert pour hausse
+                } else if (change < 0) {
+                    bnbPriceElement.style.color = '#F44336'; // Rouge pour baisse
+                }
+                
+                // Animation de scale
+                bnbPriceElement.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    bnbPriceElement.style.transform = 'scale(1)';
+                }, 200);
+                
+                // Retour à la couleur normale après 1 seconde
+                setTimeout(() => {
+                    bnbPriceElement.style.color = '';
+                }, 1000);
+            }
+            
+            bnbPriceElement.textContent = `$${newPrice.toFixed(2)}`;
+            console.log('PRIX BNB MIS A JOUR:', newPrice);
         } else if (bnbPriceElement) {
             bnbPriceElement.textContent = 'Prix non disponible';
             console.warn('PRIX BNB NON DISPONIBLE');
