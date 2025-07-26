@@ -328,6 +328,35 @@ La connexion réelle MetaMask et WalletConnect est totalement fonctionnelle côt
     - Gestion de la déconnexion utilisateur
     - Préparation de l'intégration WalletConnect
 
+### [CORRECTION 2025-07-26] CARD 3 PRIX TEMPS RÉEL - FINALISATION
+**Problème résolu** : Card 3 affichait un prix hardcodé au lieu du vrai prix BNB/USDT
+**Modifications appliquées** :
+
+#### Backend (contract_manager.py)
+- ✅ Fonction `get_pancakeswap_price()` modifiée pour BNB sur BSC
+- ✅ Pool BNB/USDT V3 direct : `0x36696169C63e42cd08ce11f5deeBbCeBae652050`
+- ✅ Retour uniformisé en dictionnaire : `{"price": float, "cached": bool}`
+- ✅ Prix USDT fixe : `{"price": 1.0, "cached": false}`
+
+#### Backend (main.py)
+- ✅ Route `/api/v1/price/{chain_id}/{token}` simplifiée
+- ✅ Logique BNB : appel direct `contract_manager.get_pancakeswap_price()`
+- ✅ Logique USDT : prix fixe 1.0
+- ✅ Gestion des types de retour (dict vs float)
+
+#### Frontend (main.js)
+- ✅ Fonction `updatePrices()` : suppression requête USDT
+- ✅ Fonction `updatePriceDisplay()` : animation vert/rouge selon direction
+- ✅ Prix formaté : `$${parseFloat(newPrice).toFixed(2)}`
+- ✅ Animation scale + couleur temporaire (1 seconde)
+
+#### Tests validés
+- ✅ ContractManager : Prix BNB récupéré depuis PancakeSwap V3 (~780$)
+- ✅ API Response : Logique backend correcte
+- ✅ Frontend Logic : Formatage et animation corrects
+
+**Résultat** : Card 3 affiche maintenant le vrai prix BNB/USDT en temps réel, fidèle à Binance, avec animations de changement de prix (vert/rouge selon hausse/baisse).
+
 ## [BUG UX] Bouton wallet blanc à l'ouverture
 - **Cause** : Le bouton n'avait pas la classe d'état 'disconnected' à l'ouverture, donc il héritait du style de base (fond blanc).
 - **Solution** : Ajouter la classe 'disconnected' dès l'ouverture dans le HTML (`<button id="metamask-btn" class="wallet-header-btn disconnected">`).

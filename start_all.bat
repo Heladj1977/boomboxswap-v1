@@ -35,10 +35,18 @@ if not exist backend\main.py (
 )
 echo [4/4] ATTENTE BACKEND PRET... OK
 
+REM [5/5] Démarrage surveillance Git automatisée (DÉSACTIVÉ)
+REM echo [5/5] DEMARRAGE SURVEILLANCE GIT...
+REM echo Surveillance automatique des modifications...
+REM echo Commit et push vers GitHub après validation tests
+REM echo =========================================
+REM start "Auto-Commit" python scripts\auto-commit.py
+
 echo =========================================
 echo MISSION BOOMBOXSWAP ACCOMPLIE !
 echo =========================================
 echo Interface: http://127.0.0.1:8000/interface
+echo Surveillance Git: Désactivée (pas de commit automatique)
 
 echo Lancement du backend FastAPI (logs visibles ci-dessous)...
 echo =========================================
