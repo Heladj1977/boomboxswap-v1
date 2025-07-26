@@ -645,7 +645,7 @@ class BoomboxApp {
             };
 
             // Mettre à jour l'interface
-            this.updatePriceDisplay(prices);
+            this.updatePriceDisplay(bnbData.price);
 
             // Émettre événement
             if (window.BoomboxEvents) {
