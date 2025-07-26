@@ -722,33 +722,7 @@ class BoomboxApp {
         }
     }
 
-    /**
-     * Mettre à jour l'affichage des prix en temps réel avec animations
-     */
-    updatePriceDisplayRealTime(price) {
-        const priceElement = document.getElementById('bnbPrice');
-        if (priceElement) {
-            // Animation de mise à jour
-            const oldPrice = parseFloat(priceElement.textContent.replace('$', ''));
-            const newPrice = parseFloat(price);
-            
-            if (oldPrice && newPrice !== oldPrice) {
-                // Animation de scale
-                priceElement.style.transform = 'scale(1.05)';
-                setTimeout(() => {
-                    priceElement.style.transform = 'scale(1)';
-                }, 200);
-                
-                // Couleur verte/rouge selon la direction
-                priceElement.style.color = newPrice > oldPrice ? '#4CAF50' : '#F44336';
-                setTimeout(() => {
-                    priceElement.style.color = ''; // Retour à la couleur par défaut
-                }, 1000);
-            }
-            
-            priceElement.textContent = `$${parseFloat(price).toFixed(2)}`;
-        }
-    }
+
 
     /**
      * Changer de page
