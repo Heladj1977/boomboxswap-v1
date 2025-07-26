@@ -469,10 +469,6 @@ body {
     }
 }
 
-.pulse {
-    animation: pulse 2s infinite;
-}
-
 .glow {
     animation: glow 2s infinite alternate;
 }
