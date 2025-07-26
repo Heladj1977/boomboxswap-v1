@@ -477,6 +477,29 @@ body {
     animation: glow 2s infinite alternate;
 }
 
+/* Animations pour les changements de prix */
+.price-pulse-up {
+    animation: pricePulseUp 0.6s ease-in-out;
+    color: #4CAF50 !important; /* Vert */
+}
+
+.price-pulse-down {
+    animation: pricePulseDown 0.6s ease-in-out;
+    color: #F44336 !important; /* Rouge */
+}
+
+@keyframes pricePulseUp {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes pricePulseDown {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+
 .smart-card {
     z-index: 1 !important;
 }
