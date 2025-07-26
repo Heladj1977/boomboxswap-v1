@@ -678,7 +678,7 @@ class BoomboxApp {
         
         // Mettre à jour le prix en blanc
         priceElement.textContent = `$${parseFloat(newPrice).toFixed(2)}`;
-        priceElement.style.color = ''; // Couleur par défaut (blanc)
+        priceElement.style.color = ''; // Couleur par défaut
         priceElement.style.transform = ''; // Reset scale
         
         // Appliquer l'animation uniquement si le prix a changé
@@ -691,9 +691,9 @@ class BoomboxApp {
             
             // Ajouter la classe de couleur selon la direction
             if (newPrice > oldPrice) {
-                priceElement.classList.add('price-up'); // Vert
+                priceElement.classList.add('price-up');
             } else if (newPrice < oldPrice) {
-                priceElement.classList.add('price-down'); // Rouge
+                priceElement.classList.add('price-down');
             }
             
             // Retirer l'animation après 600ms
