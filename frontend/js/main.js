@@ -593,35 +593,10 @@ class BoomboxApp {
      * Démarrer monitoring prix en temps réel
      */
     startPriceMonitoring() {
-        // Afficher un prix par défaut immédiatement pour éviter "Chargement..."
-        const bnbPriceElement = document.getElementById('bnbPrice');
-        if (bnbPriceElement) {
-            bnbPriceElement.textContent = '$0.00';
-        }
+        console.log('DEBUT MONITORING PRIX - Card 3');
         
-        // Utiliser EventSource pour les mises à jour en temps réel
-        try {
-            const eventSource = new EventSource('/api/v1/price-stream/bsc/BNB');
-            
-            eventSource.onmessage = (event) => {
-                const data = JSON.parse(event.data);
-                this.updatePriceDisplayRealTime(data.price);
-            };
-            
-            eventSource.onerror = (error) => {
-                console.error('Erreur stream prix:', error);
-                eventSource.close();
-                // Retomber sur polling en cas d'erreur
-                this.fallbackToPolling();
-            };
-            
-            // Stocker la référence pour la fermer proprement
-            window.priceEventSource = eventSource;
-            
-        } catch (error) {
-            console.error('Erreur création EventSource:', error);
-            this.fallbackToPolling();
-        }
+        // Démarrer immédiatement le polling pour afficher le prix
+        this.fallbackToPolling();
     }
 
     /**
@@ -632,10 +607,10 @@ class BoomboxApp {
         // Mise à jour initiale
         this.updatePrices();
 
-        // Mise à jour toutes les 10 secondes pour test (au lieu de 30)
+        // Mise à jour toutes les 30 secondes comme spécifié
         this.priceUpdateInterval = setInterval(() => {
             this.updatePrices();
-        }, 10000);
+        }, 30000);
     }
 
     /**
