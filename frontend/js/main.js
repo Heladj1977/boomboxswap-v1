@@ -679,24 +679,27 @@ class BoomboxApp {
             
             // Mettre à jour le prix en blanc
             bnbPriceElement.textContent = `$${parseFloat(newPrice).toFixed(2)}`;
-            bnbPriceElement.style.color = ''; // Couleur par défaut (blanc)
+            bnbPriceElement.style.color = ''; // Couleur par défaut
             bnbPriceElement.style.transform = ''; // Reset scale
             
             // Appliquer l'animation uniquement si le prix a changé
-            if (oldPrice > 0 && newPrice !== oldPrice) {
+            if (newPrice !== oldPrice) {
                 // Retirer les classes d'animation précédentes
-                bnbPriceElement.classList.remove('price-pulse-up', 'price-pulse-down');
+                bnbPriceElement.classList.remove('pulse', 'price-up', 'price-down');
                 
-                // Ajouter la classe d'animation appropriée
+                // Ajouter l'animation pulse
+                bnbPriceElement.classList.add('pulse');
+                
+                // Ajouter la classe de couleur selon la direction
                 if (newPrice > oldPrice) {
-                    bnbPriceElement.classList.add('price-pulse-up');
+                    bnbPriceElement.classList.add('price-up');
                 } else if (newPrice < oldPrice) {
-                    bnbPriceElement.classList.add('price-pulse-down');
+                    bnbPriceElement.classList.add('price-down');
                 }
                 
                 // Retirer l'animation après 600ms
                 setTimeout(() => {
-                    bnbPriceElement.classList.remove('price-pulse-up', 'price-pulse-down');
+                    bnbPriceElement.classList.remove('pulse', 'price-up', 'price-down');
                 }, 600);
             }
             
