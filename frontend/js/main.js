@@ -670,9 +670,6 @@ class BoomboxApp {
      * Mettre à jour l'affichage des prix avec animation
      */
     updatePriceDisplay(newPrice) {
-        // --- AJOUT DE LOGS DE DÉBOGAGE ---
-        console.log(`[DEBUG] updatePriceDisplay appelée avec newPrice: ${newPrice}`);
-
         const priceElement = document.getElementById('bnbPrice');
         if (!priceElement) {
             console.warn("[DEBUG] Élément avec ID 'bnbPrice' non trouvé.");
@@ -681,47 +678,32 @@ class BoomboxApp {
 
         const oldPriceText = priceElement.textContent.replace('$', '');
         const oldPrice = parseFloat(oldPriceText) || 0;
-        console.log(`[DEBUG] oldPriceText: '${oldPriceText}', oldPrice (parsed): ${oldPrice}`);
 
         // Mettre à jour le prix en blanc
         priceElement.textContent = `$${parseFloat(newPrice).toFixed(2)}`;
         priceElement.style.color = ''; // Couleur par défaut (blanc)
         priceElement.style.transform = ''; // Reset scale
-        console.log(`[DEBUG] Texte du prix mis à jour dans l'élément.`);
 
         // Appliquer l'animation uniquement si le prix a changé
         if (newPrice !== oldPrice) {
-            console.log(`[DEBUG] Changement de prix détecté. Déclenchement de l'animation.`);
-            
             // Retirer les classes d'animation précédentes
             priceElement.classList.remove('pulse', 'price-up', 'price-down');
-            console.log(`[DEBUG] Classes d'animation précédentes retirées.`);
 
             // Ajouter l'animation pulse
             priceElement.classList.add('pulse');
-            console.log(`[DEBUG] Classe 'pulse' ajoutée.`);
 
             // Ajouter la classe de couleur selon la direction
             if (newPrice > oldPrice) {
                 priceElement.classList.add('price-up'); // Vert
-                console.log(`[DEBUG] Classe 'price-up' (verte) ajoutée.`);
             } else if (newPrice < oldPrice) {
                 priceElement.classList.add('price-down'); // Rouge
-                 console.log(`[DEBUG] Classe 'price-down' (rouge) ajoutée.`);
-            } else {
-                 console.log(`[DEBUG] Prix identique (devrait pas arriver ici à cause du if), pas de couleur spécifique.`);
             }
 
             // Retirer l'animation après 600ms
             setTimeout(() => {
                 priceElement.classList.remove('pulse', 'price-up', 'price-down');
-                console.log(`[DEBUG] Classes d'animation retirées après timeout.`);
             }, 600);
-
-        } else {
-            console.log(`[DEBUG] Pas de changement de prix. Aucune animation déclenchée.`);
         }
-        // --- FIN DES LOGS DE DÉBOGAGE ---
     }
 
 
@@ -1179,74 +1161,85 @@ window.addEventListener('walletconnect-disconnected', () => {
     }
 });
 
-// === LOGIQUE SÉLECTEUR CHAIN (SOLUTION 24/07/2025) ===
-(function() {
-    const selector = document.getElementById('chain-selector');
-    const menu = document.getElementById('chain-options');
-    if (!selector || !menu) return;
-    let menuOpen = false;
-    // Fonction pour positionner le menu
-    function positionMenu() {
-        const rect = selector.getBoundingClientRect();
-        Object.assign(menu.style, {
-            display: 'block',
-            position: 'fixed',
-            left: rect.left + 'px',
-            top: (rect.bottom + window.scrollY) + 'px',
-            width: rect.width + 'px',
-            minWidth: rect.width + 'px',
-            maxWidth: rect.width + 'px',
-            zIndex: 2147483647,
-        });
-    }
-    // Fonction pour ouvrir le menu
-    function openMenu() {
-        if (!document.body.contains(menu)) {
-            document.body.appendChild(menu);
-        }
-        positionMenu();
-        menu.style.display = 'block';
-        menuOpen = true;
-        setTimeout(() => {
-            document.addEventListener('mousedown', handleClickOutside);
-            window.addEventListener('resize', closeMenu);
-            window.addEventListener('scroll', closeMenu, true);
-        }, 0);
-    }
-    // Fonction pour fermer le menu
-    function closeMenu() {
-        menu.style.display = 'none';
-        menuOpen = false;
-        document.removeEventListener('mousedown', handleClickOutside);
-        window.removeEventListener('resize', closeMenu);
-        window.removeEventListener('scroll', closeMenu, true);
-    }
-    // Clic extérieur
-    function handleClickOutside(e) {
-        if (!menu.contains(e.target) && !selector.contains(e.target)) {
-            closeMenu();
-        }
-    }
-    // Toggle menu au clic
-    selector.addEventListener('click', function(e) {
-        e.stopPropagation();
-        if (menuOpen) {
-            closeMenu();
-        } else {
-            openMenu();
-        }
-    });
-    // Clic sur une option ferme le menu
-    menu.addEventListener('click', function(e) {
-        if (e.target.classList.contains('chain-option')) {
-            closeMenu();
-        }
-    });
+
     // Robustesse : fermer le menu si navigation ou DOM modifié
-    window.addEventListener('hashchange', closeMenu);
-    window.addEventListener('popstate', closeMenu);
-    // Initial state
-    menu.style.display = 'none';
+
+
+// === SÉLECTEUR DE CHAÎNE ===
+(function() {
+    console.log("=== INITIALISATION SÉLECTEUR DE CHAÎNE ===");
+    
+    const chainSelector = document.getElementById('chain-selector');
+    const chainOptions = document.getElementById('chain-options');
+    
+    if (!chainSelector || !chainOptions) {
+        console.log("Éléments sélecteur de chaîne non trouvés");
+        return;
+    }
+
+    let menuOpen = false;
+
+    // Fonction de mise à jour de la position du menu
+    const updateMenuPosition = () => {
+        const selectorRect = chainSelector.getBoundingClientRect();
+        chainOptions.style.left = selectorRect.left + 'px';
+        chainOptions.style.top = selectorRect.bottom + 5 + 'px';
+        chainOptions.style.width = selectorRect.width + 'px';
+    };
+
+    // Gestionnaire de clic sur le sélecteur
+    chainSelector.addEventListener('click', function(e) {
+        e.stopPropagation();
+        
+        if (menuOpen) {
+            chainOptions.style.display = 'none';
+            menuOpen = false;
+        } else {
+            updateMenuPosition();
+            chainOptions.style.display = 'block';
+            menuOpen = true;
+        }
+    });
+
+    // Gestionnaire de clic sur les options
+    chainOptions.addEventListener('click', function(e) {
+        if (e.target.closest('.chain-option')) {
+            const option = e.target.closest('.chain-option');
+            const chainValue = option.dataset.value;
+            const chainName = option.querySelector('.chain-name').textContent;
+            const chainLogo = option.querySelector('.chain-logo').src;
+            
+            // Mettre à jour le sélecteur
+            const selectedChain = chainSelector.querySelector('.selected-chain');
+            selectedChain.querySelector('.chain-logo').src = chainLogo;
+            selectedChain.querySelector('.chain-name').textContent = chainName;
+            
+            // Fermer le menu
+            chainOptions.style.display = 'none';
+            menuOpen = false;
+            
+            // Émettre événement de changement de chaîne
+            if (window.BoomboxEvents) {
+                window.BoomboxEvents.emit(window.BoomboxEvents.EVENTS.CHAIN_CHANGED, {
+                    chainId: chainValue,
+                    chainName: chainName,
+                    timestamp: new Date().toISOString()
+                });
+            }
+            
+            console.log(`Chaîne changée vers: ${chainName} (${chainValue})`);
+        }
+    });
+
+    // Fermer le menu en cliquant à l'extérieur
+    document.addEventListener('click', () => {
+        if (menuOpen) {
+            chainOptions.style.display = 'none';
+            menuOpen = false;
+        }
+    });
+
+    console.log("Sélecteur de chaîne initialisé avec succès");
 })();
 
 // Initialiser l'application quand le DOM est prêt
@@ -1254,8 +1247,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // === AUDIT FRONTEND BOOMSWAP ===
     console.log('=== AUDIT FRONTEND BOOMSWAP ===');
     console.log('DOM loaded:', document.readyState);
-    const chainSelectorEl = document.getElementById('chain-selector');
-    console.log('ChainSelector element:', chainSelectorEl);
     console.log('Functions defined:', {
         onWalletConnected: typeof window.BoomboxApp?.onWalletConnected,
         updatePortfolioCard: typeof window.BoomboxApp?.updatePortfolioCard

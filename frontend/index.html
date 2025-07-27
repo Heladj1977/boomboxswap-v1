@@ -8,7 +8,7 @@
     <!-- CDN Dependencies -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="assets/css/notifications.css" rel="stylesheet">
+    <link href="assets/css/boombox.css" rel="stylesheet">
 
     <style>
         /* CSS INTÉGRÉ DIRECTEMENT */
@@ -49,9 +49,9 @@
             background: rgba(42, 51, 66, 0.9);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(74, 144, 226, 0.3);
-            padding: 0.3rem 1rem;
+            padding: 0.5rem 2rem;
             position: relative;
-            min-height: 64px;
+            min-height: 50px;
             height: auto;
         }
 
@@ -64,6 +64,7 @@
             height: 100%;
             width: 100%;
             padding: 0 20px !important;
+            min-height: 40px;
         }
 
         .logo-section {
@@ -135,8 +136,8 @@
             display: flex;
             justify-content: center;
             gap: 0.3rem;
-            margin-top: 0.3rem;
-            transform: translateY(-0.3rem);
+            margin-top: 0;
+            transform: none;
             position: relative;
             z-index: 2;
         }
@@ -155,93 +156,14 @@
             box-shadow: 0 0 10px var(--accent-blue);
         }
 
-        /* Sélecteur de chain personnalisé */
-        .chain-selector-container {
-            position: absolute;
-            top: 0.5rem;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 3;
-        }
 
-        .custom-chain-selector {
-            position: relative;
-            background: var(--primary-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            min-width: 100px;
-            z-index: 1;
-        }
-
-        .custom-chain-selector:hover {
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
-        }
-
-        .selected-chain {
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-            padding: 0.3rem 0.6rem;
-            color: var(--text-primary);
-            font-size: 0.8rem;
-        }
-
-        .chain-logo {
-            width: 20px;
-            height: 20px;
-            object-fit: contain;
-            border-radius: 3px;
-        }
-
-        .chain-name {
-            font-weight: 500;
-        }
-
-        .chain-options {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: var(--primary-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            /* display: none;  // SUPPRIMÉ : affichage désormais contrôlé uniquement par le JS */
-            z-index: 99999;
-        }
-
-        /* .custom-chain-selector.open .chain-options {
-            display: block;
-        } // SUPPRIMÉ : menu déplacé sous <body> */
-
-        .chain-option {
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-            padding: 0.3rem 0.6rem;
-            color: var(--text-primary);
-            font-size: 0.8rem;
-            transition: background-color 0.2s ease;
-        }
-
-        .chain-option:hover {
-            background: rgba(74, 144, 226, 0.1);
-        }
-
-        .chain-option.selected {
-            background: rgba(74, 144, 226, 0.2);
-            color: var(--accent-blue);
-        }
 
         /* Main Content */
         .main-content {
             padding: 0.5rem 0.5rem 0.2rem 0.5rem;
             max-width: 1400px;
             margin: 0 auto;
-            height: calc(100vh - 80px);
+            height: calc(100vh - 60px);
             overflow: visible;
         }
 
@@ -288,8 +210,9 @@
 
         /* Cards du bas - plus grandes en hauteur */
         .smart-card.bottom-row {
-            min-height: 250px;
-            overflow: visible;
+            min-height: 170px !important;
+            overflow: visible !important;
+            margin-bottom: 0.5rem !important;
         }
 
         /* Ajustements spécifiques pour les cards du bas */
@@ -598,26 +521,7 @@
             color: white;
         }
 
-        .price-indicator {
-            width: 8px;
-            height: 8px;
-            background: #2ecc71;
-            border-radius: 50%;
-            animation: glow 2s infinite;
-            transform: translateY(-28px);
-        }
 
-        @keyframes glow {
-            0% {
-                box-shadow: 0 0 10px rgba(46, 204, 113, 0.6);
-            }
-            50% {
-                box-shadow: 0 0 15px rgba(46, 204, 113, 0.8);
-            }
-            100% {
-                box-shadow: 0 0 10px rgba(46, 204, 113, 0.6);
-            }
-        }
 
 
 
@@ -1247,28 +1151,7 @@ wcm-qr-code svg {
 .logo-boomboxswap .swap { color: #3b82f6 !important; }
 </style>
 <style>
-    .chain-navigation-container {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        gap: 6px !important;
-        flex: 0 0 auto !important;
-        flex-shrink: 0 !important;
-        width: auto !important;
-    }
-    .chain-navigation-container > .custom-chain-selector {
-        order: 1 !important;
-        margin-bottom: 0 !important;
-        width: auto !important;
-    }
-    .chain-navigation-container > .navigation-points {
-        order: 2 !important;
-        display: flex !important;
-        flex-direction: row !important;
-        gap: 8px !important;
-        width: auto !important;
-    }
+
     .nav-point {
         width: 8px !important;
         height: 8px !important;
@@ -1286,8 +1169,8 @@ wcm-qr-code svg {
 <style>
 .header-container {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: center; /* Centre verticalement */
+    justify-content: space-between; /* Distribue horizontalement */
     position: relative;
     max-width: 1400px;
     margin: 0 auto;
@@ -1315,63 +1198,130 @@ wcm-qr-code svg {
     justify-content: center;
     position: relative;
     z-index: 10000;
+    gap: 3px; /* Réduit encore plus l'espace entre le sélecteur et les points */
+    height: 100%;
 }
-.custom-chain-selector {
-    position: relative !important;
-    z-index: 10 !important;
-}
-.chain-options {
-    position: absolute !important;
-    z-index: 99999 !important;
-    left: 0 !important;
-    right: 0 !important;
-    top: 100% !important;
-    margin-top: 4px !important;
-    min-width: 160px !important;
-}
-.navigation-points {
+
+.navigation-dots {
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
     justify-content: center !important;
     gap: 8px !important;
-    margin-top: 10px !important;
+    margin-top: -6px; /* Monte encore plus les points vers le haut */
+    margin-bottom: 0; /* Supprime l'espace en dessous */
+}
+
+.dot {
+    width: 8px !important;
+    height: 8px !important;
+    border-radius: 50% !important;
+    background: #94a3b8 !important;
+    cursor: pointer !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.dot.active {
+    background: #10b981 !important;
 }
 </style>
 <style>
-.chain-options {
-    background: #1a2332 !important;
-    border: 2px solid #4a90e2 !important;
-    color: #fff !important;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.4) !important;
-}
+
 </style>
 <style>
+.glass-header {
+    padding-top: 8px; /* Réduit l'espace au-dessus du sélecteur */
+    padding-bottom: 8px; /* Réduit l'espace en dessous des points de navigation */
+}
+
 .glass-header,
 .header-container,
 .header-center {
     position: static !important;
     z-index: auto !important;
 }
-.custom-chain-selector {
-    position: relative !important;
-    z-index: 10 !important;
-}
-.chain-options {
-    position: absolute !important;
-    z-index: 99999 !important;
-    left: 0 !important;
-    right: 0 !important;
-    top: 100% !important;
-    margin-top: 4px !important;
-    min-width: 160px !important;
-    width: auto !important;
-    box-sizing: border-box !important;
-}
+
 .smart-card, .main-content, .smart-grid {
     z-index: auto !important;
     transform: none !important;
     overflow: visible !important;
+}
+
+/* Sélecteur de chaîne */
+.chain-selector {
+    position: relative;
+    background: var(--primary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 100px;
+    z-index: 1;
+    margin-bottom: 0; /* Réduit l'espace sous le sélecteur */
+    margin-top: -4px; /* Monte encore plus le sélecteur vers le haut */
+}
+
+.chain-selector:hover {
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+}
+
+.selected-chain {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.3rem 0.6rem;
+    color: var(--text-primary);
+    font-size: 0.8rem;
+}
+
+.chain-logo {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    border-radius: 3px;
+}
+
+.chain-name {
+    font-weight: 500;
+}
+
+.chain-options {
+    position: fixed;
+    z-index: 2147483647;
+    background: rgba(42, 51, 66, 0.98);
+    border: 1px solid rgba(74, 144, 226, 0.4);
+    border-radius: 8px;
+    width: 100px; /* Même largeur que le sélecteur */
+    min-width: 100px;
+    max-width: 100px;
+    padding: 4px 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+}
+
+.chain-option {
+    display: block;
+    padding: 8px 12px;
+    color: #ffffff;
+    text-decoration: none;
+    transition: background-color 0.2s;
+    font-size: 14px;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.chain-option:hover {
+    background: rgba(74, 144, 226, 0.2);
+}
+
+/* Points de navigation - ajustement position */
+.dot {
+    position: relative !important;
+    top: 8px !important; /* Décale les points vers le bas sans affecter le layout */
 }
 </style>
 </head>
@@ -1386,17 +1336,16 @@ wcm-qr-code svg {
                 </div>
             </div>
             <div class="header-center">
-                <div class="custom-chain-selector" id="chain-selector">
-                    <div class="selected-chain" id="selected-chain">
+                <div class="chain-selector" id="chain-selector">
+                    <div class="selected-chain">
                         <img src="assets/images/chains/BSC-logo.svg" alt="BSC" class="chain-logo">
                         <span class="chain-name">BSC</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
-                    <!-- MENU DROPDOWN DÉPLACÉ SOUS <body> POUR ÉVITER LES PROBLÈMES DE STACKING CONTEXT -->
                 </div>
-                <div class="navigation-points">
-                    <span class="nav-point active"></span>
-                    <span class="nav-point"></span>
+                <div class="navigation-dots">
+                    <div class="dot active"></div>
+                    <div class="dot"></div>
                 </div>
             </div>
             <div class="header-side header-right">
@@ -1408,19 +1357,19 @@ wcm-qr-code svg {
             </div>
         </div>
     </header>
-    <!-- MENU DROPDOWN DÉPLACÉ POUR ÉVITER STACKING CONTEXT -->
-    <div class="chain-options" id="chain-options">
+
+    <div class="chain-options" id="chain-options" style="display: none;">
         <div class="chain-option" data-value="bsc">
             <img src="assets/images/chains/BSC-logo.svg" alt="BSC" class="chain-logo">
             <span class="chain-name">BSC</span>
         </div>
-        <div class="chain-option" data-value="arb">
-            <img src="assets/images/chains/arbitrum-arb-logo.svg" alt="ARB" class="chain-logo">
-            <span class="chain-name">ARB</span>
+        <div class="chain-option" data-value="arbitrum">
+            <img src="assets/images/chains/arbitrum-arb-logo.svg" alt="Arb" class="chain-logo">
+            <span class="chain-name">Arb</span>
         </div>
         <div class="chain-option" data-value="base">
-            <img src="assets/images/chains/Base logo.png" alt="BASE" class="chain-logo">
-            <span class="chain-name">BASE</span>
+            <img src="assets/images/chains/Base logo.png" alt="Base" class="chain-logo">
+            <span class="chain-name">Base</span>
         </div>
     </div>
 
@@ -1478,7 +1427,6 @@ wcm-qr-code svg {
                 </div>
                 <div class="price-content">
                     <div id="bnbPrice" class="price-main">$0.00</div>
-                    <div class="price-indicator"></div>
                 </div>
             </div>
 
@@ -1738,36 +1686,7 @@ wcm-qr-code svg {
     <script src="assets/js/boombox-gaming.js"></script>
     <script src="js/core/api-client.js"></script>
     <script src="js/main.js"></script>
-    <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const chainSelector = document.querySelector('.custom-chain-selector');
-    const chainOptions = document.querySelector('.chain-options');
-    const cards = document.querySelectorAll('.smart-card');
 
-    // Log à chaque ouverture du menu
-    if (chainSelector && chainOptions) {
-        chainSelector.addEventListener('click', function() {
-            setTimeout(function() {
-                // This function is no longer needed as the debug styles are removed.
-                // Keeping it for now in case it's re-introduced or if it was part of a larger debug suite.
-                // console.log("=== DEBUG MENU SÉLECTEUR ===");
-                // console.log("Menu .chain-options : left =", menuRect.left, "top =", menuRect.top, "width =", menuRect.width, "height =", menuRect.height);
-                // console.log("Parent .custom-chain-selector : left =", parentRect.left, "top =", parentRect.top, "width =", parentRect.width, "height =", parentRect.height);
-                // console.log("Menu z-index :", window.getComputedStyle(chainOptions).zIndex, "Position :", window.getComputedStyle(chainOptions).position);
-                // console.log("Parent z-index :", window.getComputedStyle(chainSelector).zIndex, "Position :", window.getComputedStyle(chainSelector).position);
-                // if (chainOptions.parentElement) {
-                //     console.log("Parent direct de .chain-options :", chainOptions.parentElement.className || chainOptions.parentElement.id || chainOptions.parentElement.tagName);
-                // }
-                // cards.forEach((card, idx) => {
-                //     const cardRect = card.getBoundingClientRect();
-                //     console.log(`Card ${idx+1} (.smart-card) : left = ${cardRect.left}, top = ${cardRect.top}, width = ${cardRect.width}, height = ${cardRect.height}, z-index = ${window.getComputedStyle(card).zIndex}, position = ${window.getComputedStyle(card).position}`);
-                // });
-                // console.log("=== FIN DEBUG ===");
-            }, 200); // attendre l'ouverture du menu
-        });
-    }
-});
-    </script>
     <script>
     window.addEventListener('load', function() {
         console.log('=== VÉRIFICATIONS BOOMSWAP WALLETCONNECT V2 EVENT ===');
