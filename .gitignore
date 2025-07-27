@@ -55,6 +55,7 @@ build/
 *.so
 
 # Fichiers spécifiques au projet
+# Fichiers FastAPI
 openapi_dump.json
 *.md (sauf ceux listés ci-dessous)
 !README.md

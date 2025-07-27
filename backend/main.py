@@ -15,6 +15,7 @@ from typing import Dict
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from datetime import datetime
+from eth_utils import is_address
 
 import os
 from dotenv import load_dotenv
@@ -449,7 +450,6 @@ class BoomboxSwapApp:
             Récupérer les soldes d'un wallet utilisateur
             (dynamique, blockchain réelle)
             """
-            from eth_utils import is_address
             logger.info(
                 f"[API] Appel /api/v1/data/balances/{address} "
                 f"chain_id={chain_id}"
@@ -460,15 +460,11 @@ class BoomboxSwapApp:
             chain_id_map = {56: "bsc", 42161: "arbitrum", 8453: "base"}
             chain_key = chain_id_map.get(chain_id, str(chain_id))
             # Validation Ethereum address (robuste)
-            is_valid = is_address(address)
-            print(f"[API] validation: {is_valid}")
-            if not is_valid:
+            if not is_address(address):
                 logger.warning(f"Adresse invalide: {address}")
                 raise HTTPException(
                     status_code=422,
-                    detail=(
-                        "Adresse Ethereum invalide"
-                    )
+                    detail="Adresse Ethereum invalide"
                 )
             # Wallet null address → tout à zéro
             if address.lower() == '0x0000000000000000000000000000000000000000':
@@ -482,7 +478,14 @@ class BoomboxSwapApp:
                 try:
                     cm = self.contract_manager
                     if not cm:
-                        raise Exception("ContractManager non initialisé")
+                        logger.error("ContractManager non initialisé")
+                        raise HTTPException(
+                            status_code=503,
+                            detail=(
+                                "Service indisponible: "
+                                "ContractManager non prêt"
+                            )
+                        )
                     # Récupération soldes bruts
                     bnb_raw = cm.get_token_balance(chain_key, "BNB", address)
                     usdt_raw = cm.get_token_balance(chain_key, "USDT", address)
@@ -570,12 +573,11 @@ class BoomboxSwapApp:
             """
             Récupérer les positions LP d'un wallet utilisateur (mode démo)
             """
-            import re
             logger.info(
                 f"[API] Appel /api/v1/positions/wallet/{address} "
                 f"chain_id={chain_id}"
             )
-            if not re.match(r"^0x[a-fA-F0-9]{40}$", address):
+            if not is_address(address):
                 logger.warning(f"Adresse invalide: {address}")
                 raise HTTPException(
                     status_code=422,
